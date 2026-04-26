@@ -1,0 +1,1833 @@
+<sdf version='1.9'>
+  <world name='warehouse'>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <model name='tanvi_warehouse'>
+      <static>false</static>
+      <link name='main'>
+        <collision name='collision'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='WALLS_visual'>
+          <geometry>
+            <mesh>
+              <scale>0.6 0.6 0.6</scale>
+              <uri>file:///home/tanvi/ros_mobile_robot/src/world/meshes/Depot.dae</uri>
+              <submesh>
+                <name>WALLS</name>
+                <center>false</center>
+              </submesh>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/WALLS_Albedo.png</albedo_map>
+                <normal_map>materials/textures/WALLS_Normal.png</normal_map>
+                <metalness_map>materials/textures/WALLS_Metalness.png</metalness_map>
+                <roughness_map>materials/textures/WALLS_Roughness.png</roughness_map>
+                <light_map uv_set='1'>materials/textures/DepotLightmap.png</light_map>
+              </metal>
+            </pbr>
+            <script>
+              <uri>file:///home/tanvi/ros_mobile_robot/src/world/materials/scripts/</uri>
+              <uri>materials/textures/</uri>
+              <name>UrbanTile/WALLS_Diffuse</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='BOXSET_visual'>
+          <geometry>
+            <mesh>
+              <scale>0.6 0.6 0.6</scale>
+              <uri>file:///home/tanvi/ros_mobile_robot/src/world/meshes/Depot.dae</uri>
+              <submesh>
+                <name>BOXSET</name>
+                <center>false</center>
+              </submesh>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/BOXSET_Albedo.png</albedo_map>
+                <normal_map>materials/textures/BOXSET_Normal.png</normal_map>
+                <metalness_map>materials/textures/BOXSET_Metalness.png</metalness_map>
+                <roughness_map>materials/textures/BOXSET_Roughness.png</roughness_map>
+                <emissive_map>materials/textures/BOXSET_Emissive.png</emissive_map>
+                <light_map uv_set='1'>materials/textures/DepotLightmap.png</light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <visual name='FLOOR_visual'>
+          <geometry>
+            <mesh>
+              <scale>0.6 0.6 0.6</scale>
+              <uri>file:///home/tanvi/ros_mobile_robot/src/world/meshes/Depot.dae</uri>
+              <submesh>
+                <name>FLOOR</name>
+                <center>false</center>
+              </submesh>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/FLOOR_Albedo.png</albedo_map>
+                <normal_map>materials/textures/FLOOR_Normal.png</normal_map>
+                <metalness_map>materials/textures/FLOOR_Metalness.png</metalness_map>
+                <roughness_map>materials/textures/FLOOR_Roughness.png</roughness_map>
+                <light_map uv_set='1'>materials/textures/DepotLightmap.png</light_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <visual name='crates'>
+          <geometry>
+            <mesh>
+              <scale>0.6 0.6 0.6</scale>
+              <uri>file:///home/tanvi/ros_mobile_robot/src/world/meshes/Crates.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/Crates_Crates_BaseColor.png</albedo_map>
+                <normal_map>materials/textures/Crates_Crates_Normal.png</normal_map>
+                <roughness_map>materials/textures/Crates_Crates_Roughness.png</roughness_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <pose>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <joint name='world_joint' type='fixed'>
+        <parent>world</parent>
+        <child>main</child>
+        <pose>0 0 0 0 -0 0</pose>
+      </joint>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='shelf'>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>true</self_collide>
+      <link name='shelf_base'>
+        <pose>-0.5 0 0 0 -0 0</pose>
+        <collision name='shelf_chassi_collision'>
+          <pose>0 0 0.9 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>3.6 0.6 1.8</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='shelf_chassi_visual'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>0.2 0.3 0.3</scale>
+              <uri>file:///home/tanvi/ros_mobile_robot/src/world/meshes/shelf_big_movai.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <static>true</static>
+    </model>
+    <model name='FoodCourtTable1'>
+      <static>true</static>
+      <link name='body'>
+        <pose>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/foodcourttable1/2/files/meshes/FoodCourtTable1.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/foodcourttable1/2/files/meshes/FoodCourtTable1_Col.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-2.20153 -4.17308 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='OfficeChair'>
+      <static>true</static>
+      <link name='base_link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>file:///home/tanvi/.ignition/fuel/fuel.gazebosim.org/openrobotics/models/office chair/1/meshes/officechair.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>1 1 1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>materials/textures/OfficeChair_Albedo.png</albedo_map>
+                <normal_map>materials/textures/OfficeChair_Normal.png</normal_map>
+                <roughness_map>materials/textures/OfficeChair_Roughness.png</roughness_map>
+                <metalness_map>materials/textures/OfficeChair_Metalness.png</metalness_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <collision name='Box001'>
+          <pose>0.0 0.03962 0.46685 0.0872665 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.511249 0.578359 0.108987</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box002'>
+          <pose>0.0 -0.200278 0.766385 -1.48353 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.511249 0.665113 0.108987</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Cylinder001'>
+          <pose>0.0 0.0 0.239577 0.0 0.0 0.0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.39559100000000003</length>
+              <radius>0.0321281</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Cylinder002'>
+          <pose>0.406934 -0.124695 0.037183 1.5708 0.0 -0.0671651</pose>
+          <geometry>
+            <cylinder>
+              <length>0.058403099999999999</length>
+              <radius>0.0379998</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Cylinder003'>
+          <pose>0.243918 0.348604 0.037183 1.5708 0.0 1.17814</pose>
+          <geometry>
+            <cylinder>
+              <length>0.058403099999999999</length>
+              <radius>0.0379998</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Cylinder004'>
+          <pose>-0.255977 0.339873 0.037183 1.5708 0.0 2.44229</pose>
+          <geometry>
+            <cylinder>
+              <length>0.058403099999999999</length>
+              <radius>0.0379998</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Cylinder005'>
+          <pose>-0.40242 -0.13893 0.037183 1.5708 0.0 -2.5742</pose>
+          <geometry>
+            <cylinder>
+              <length>0.058403099999999999</length>
+              <radius>0.0379998</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Cylinder006'>
+          <pose>0.00739516 -0.425689 0.037183 1.5708 0.0 1.8213</pose>
+          <geometry>
+            <cylinder>
+              <length>0.058403099999999999</length>
+              <radius>0.0379998</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box003'>
+          <pose>0.0 -0.208233 0.12911 0.0699253 0.0 0.0</pose>
+          <geometry>
+            <box>
+              <size>0.050443 0.404478 0.059061</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box004'>
+          <pose>-0.198041 -0.0643475 0.12911 0.0699253 0.0 -1.25664</pose>
+          <geometry>
+            <box>
+              <size>0.050443 0.404478 0.059061</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box005'>
+          <pose>-0.122396 0.168464 0.12911 0.0699253 0.0 -2.51327</pose>
+          <geometry>
+            <box>
+              <size>0.050443 0.404478 0.059061</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box006'>
+          <pose>0.122396 0.168464 0.12911 0.0699253 0.0 2.51327</pose>
+          <geometry>
+            <box>
+              <size>0.050443 0.404478 0.059061</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box007'>
+          <pose>0.198041 -0.0643477 0.12911 0.0699253 0.0 1.25664</pose>
+          <geometry>
+            <box>
+              <size>0.050443 0.404478 0.059061</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box008'>
+          <pose>-0.275812 -0.0026205 0.741555 1.5708 0.139626 -1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.26452 0.043899 0.065929</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box009'>
+          <pose>-0.273179 -0.0180064 0.599892 1.5708 0.139626 -1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.06613 0.280955 0.03692</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box010'>
+          <pose>0.275965 -0.00262052 0.741555 1.5708 -0.139626 1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.26452 0.043899 0.065929</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='Box011'>
+          <pose>0.27346 -0.0180064 0.599892 1.5708 -0.139626 1.5708</pose>
+          <geometry>
+            <box>
+              <size>0.06613 0.280955 0.03692</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <pose>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-1.93285 -5.74574 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='SquareShelf'>
+      <static>true</static>
+      <link name='body'>
+        <pose>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/squareshelf/3/files/meshes/SquareShelf.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/squareshelf/3/files/meshes/SquareShelf_Col.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-3.52047 -5.33186 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='ladder_75deg_2rails'>
+      <static>true</static>
+      <link name='step0'>
+        <pose>0 0.071453 0.266667 0 -0 0</pose>
+        <inertial>
+          <mass>9.7548200000000005</mass>
+          <inertia>
+            <ixx>0.00957124</ixx>
+            <iyy>0.65963000000000005</iyy>
+            <izz>0.66684200000000005</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='step1'>
+        <pose>0 0.142906 0.533333 0 -0 0</pose>
+        <inertial>
+          <mass>9.7548200000000005</mass>
+          <inertia>
+            <ixx>0.00957124</ixx>
+            <iyy>0.65963000000000005</iyy>
+            <izz>0.66684200000000005</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='step2'>
+        <pose>0 0.214359 0.8 0 -0 0</pose>
+        <inertial>
+          <mass>9.7548200000000005</mass>
+          <inertia>
+            <ixx>0.00957124</ixx>
+            <iyy>0.65963000000000005</iyy>
+            <izz>0.66684200000000005</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='step3'>
+        <pose>0 0.285812 1.06667 0 -0 0</pose>
+        <inertial>
+          <mass>9.7548200000000005</mass>
+          <inertia>
+            <ixx>0.00957124</ixx>
+            <iyy>0.65963000000000005</iyy>
+            <izz>0.66684200000000005</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='step4'>
+        <pose>0 0.357266 1.33333 0 -0 0</pose>
+        <inertial>
+          <mass>9.7548200000000005</mass>
+          <inertia>
+            <ixx>0.00957124</ixx>
+            <iyy>0.65963000000000005</iyy>
+            <izz>0.66684200000000005</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='step5'>
+        <pose>0 0.428719 1.6 0 -0 0</pose>
+        <inertial>
+          <mass>9.7548200000000005</mass>
+          <inertia>
+            <ixx>0.00957124</ixx>
+            <iyy>0.65963000000000005</iyy>
+            <izz>0.66684200000000005</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='step6'>
+        <pose>0 0.500172 1.86667 0 -0 0</pose>
+        <inertial>
+          <mass>9.7548200000000005</mass>
+          <inertia>
+            <ixx>0.00957124</ixx>
+            <iyy>0.65963000000000005</iyy>
+            <izz>0.66684200000000005</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='step7'>
+        <pose>0 0.571625 2.13333 0 -0 0</pose>
+        <inertial>
+          <mass>9.7548200000000005</mass>
+          <inertia>
+            <ixx>0.00957124</ixx>
+            <iyy>0.65963000000000005</iyy>
+            <izz>0.66684200000000005</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.9 0.1016 0.0381</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='landing'>
+        <pose>0 0.943078 2.4 0 -0 0</pose>
+        <inertial>
+          <mass>57.607199999999999</mass>
+          <inertia>
+            <ixx>1.7351799999999999</ixx>
+            <iyy>3.8954499999999999</iyy>
+            <izz>5.6166999999999998</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.9 0.6 0.1016</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.9 0.6 0.1016</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='left_side_wall'>
+        <pose>-0.45 0.321539 1.2 1.309 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.0508 2.56466 0.13</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.0508 2.56466 0.13</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='right_side_wall'>
+        <pose>0.45 0.321539 1.2 1.309 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.0508 2.56466 0.13</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.0508 2.56466 0.13</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='left_railing_long'>
+        <pose>-0.45 -0.053461 1.66651 -0.261799 0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>3.5152934205488977</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>3.5152934205488977</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='left_railing_upright0'>
+        <pose>-0.45 -0.210089 0.056293 1.309 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='left_railing_upright1'>
+        <pose>-0.45 0.00427 0.856293 1.309 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='left_railing_upright2'>
+        <pose>-0.45 0.21863 1.65629 1.309 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='left_railing_upright3'>
+        <pose>-0.45 0.432989 2.45629 1.309 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='left_railing_landing_top'>
+        <pose>-0.45 0.818078 3.35714 1.5708 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.87412999999999996</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.87412999999999996</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='left_railing_landing_upright_0'>
+        <pose>-0.45 0.643078 2.86651 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.93301270189221941</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.93301270189221941</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='left_railing_landing_upright_1'>
+        <pose>-0.45 1.24308 2.86651 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.93301270189221941</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.93301270189221941</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='right_railing_long'>
+        <pose>0.45 -0.053461 1.66651 -0.261799 0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>3.5152934205488977</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>3.5152934205488977</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='right_railing_upright0'>
+        <pose>0.45 -0.210089 0.056293 1.309 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='right_railing_upright1'>
+        <pose>0.45 0.00427 0.856293 1.309 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='right_railing_upright2'>
+        <pose>0.45 0.21863 1.65629 1.309 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='right_railing_upright3'>
+        <pose>0.45 0.432989 2.45629 1.309 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.48296291314453416</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='right_railing_landing_top'>
+        <pose>0.45 0.818078 3.35714 1.5708 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.87412999999999996</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.87412999999999996</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='right_railing_landing_upright_0'>
+        <pose>0.45 0.643078 2.86651 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.93301270189221941</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.93301270189221941</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <link name='right_railing_landing_upright_1'>
+        <pose>0.45 1.24308 2.86651 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.93301270189221941</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.024129999999999999</radius>
+              <length>0.93301270189221941</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.7 0.7 0.7 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0.764425 5.34461 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='person_walking'>
+      <link name='link'>
+        <inertial>
+          <pose>0 0 0.95 0 -0 0</pose>
+          <mass>80</mass>
+          <inertia>
+            <ixx>27.82</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>24.879999999999999</iyy>
+            <iyz>0</iyz>
+            <izz>4.5700000000000003</izz>
+          </inertia>
+        </inertial>
+        <collision name='bottom'>
+          <pose>0 0 0.01 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.35 0.75 0.02</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <collision name='person'>
+          <pose>0 0 -0.02 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/walking person/3/files/meshes/walking.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <pose>0 0 -0.02 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/walking person/3/files/meshes/walking.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose>0 0 0 0 -0 0</pose>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-1.91517 1.86551 0 0 -0 0</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+    <model name='MopCart3'>
+      <link name='link'>
+        <pose>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/mopcart3/2/files/meshes/MopCart3.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/mopcart3/2/files/meshes/MopCart3.obj</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>-3.53111 4.57171 0 0 -0 0</pose>
+      <static>false</static>
+      <self_collide>false</self_collide>
+    </model>
+  </world>
+</sdf>
