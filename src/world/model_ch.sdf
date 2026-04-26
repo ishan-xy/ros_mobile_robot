@@ -13,7 +13,37 @@
             </plane>
           </geometry>
         </collision>
-
+            <visual name="WALLS_visual">
+                <geometry>
+                    <mesh>
+                        <scale>0.6 0.6 0.6</scale>
+                        <uri>meshes/Depot.dae</uri>
+                        <submesh>
+                            <name>WALLS</name>
+                            <center>false</center>
+                        </submesh>
+                    </mesh>
+                </geometry>
+                <material>
+                    <diffuse>1.0 1.0 1.0</diffuse>
+                    <specular>1.0 1.0 1.0</specular>
+                    <pbr>
+                        <metal>
+                            <albedo_map>materials/textures/WALLS_Albedo.png</albedo_map>
+                            <normal_map>materials/textures/WALLS_Normal.png</normal_map>
+                            <metalness_map>materials/textures/WALLS_Metalness.png</metalness_map>
+                            <roughness_map>materials/textures/WALLS_Roughness.png</roughness_map>
+                            <light_map uv_set="1">materials/textures/DepotLightmap.png</light_map>
+                        </metal>
+                    </pbr>
+                    <!-- fallback to script if no PBR support-->
+                    <script>
+                        <uri>materials/scripts/</uri>
+                        <uri>materials/textures/</uri>
+                        <name>UrbanTile/WALLS_Diffuse</name>
+                    </script>
+                </material>
+            </visual>
 
         <visual name="BOXSET_visual">
           <geometry>
