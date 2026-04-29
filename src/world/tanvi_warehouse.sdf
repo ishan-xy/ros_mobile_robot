@@ -1,148 +1,63 @@
 <?xml version="1.0"?>
 <sdf version="1.6">
-  <world name="warehouse">
+  <world name="warehouse_world">
+
+    <scene>
+      <grid>false</grid>
+      <origin_visual>false</origin_visual>
+      <sky>
+        <time>12</time>
+        <sunrise>6</sunrise>
+        <sunset>18</sunset>
+      </sky>
+      <ambient>0.5 0.5 0.5 1</ambient>
+      <background>0.5 0.7 1.0 1</background>
+    </scene>
+
+
+    <light name="warehouse_light" type="point">
+      <pose>0 0 8 0 0 0</pose>
+      <diffuse>0.7 0.7 0.7 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>50</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <cast_shadows>true</cast_shadows>
+    </light>
+
     <model name="tanvi_warehouse">
-      <static>false</static>
+      <static>true</static> <pose>0 0 0 0 0 0</pose>
       <link name="main">
-        <collision name="collision">
-          <pose>0 0 0 0 0 0</pose>
-          <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>100 100</size>
-            </plane>
-          </geometry>
-        </collision>
-            <visual name="WALLS_visual">
-                <geometry>
-                    <mesh>
-                        <scale>0.6 0.6 0.6</scale>
-                        <uri>meshes/Depot.dae</uri>
-                        <submesh>
-                            <name>WALLS</name>
-                            <center>false</center>
-                        </submesh>
-                    </mesh>
-                </geometry>
-                <material>
-                    <diffuse>1.0 1.0 1.0</diffuse>
-                    <specular>1.0 1.0 1.0</specular>
-                    <pbr>
-                        <metal>
-                            <albedo_map>materials/textures/WALLS_Albedo.png</albedo_map>
-                            <normal_map>materials/textures/WALLS_Normal.png</normal_map>
-                            <metalness_map>materials/textures/WALLS_Metalness.png</metalness_map>
-                            <roughness_map>materials/textures/WALLS_Roughness.png</roughness_map>
-                            <light_map uv_set="1">materials/textures/DepotLightmap.png</light_map>
-                        </metal>
-                    </pbr>
-                    <!-- fallback to script if no PBR support-->
-                    <script>
-                        <uri>materials/scripts/</uri>
-                        <uri>materials/textures/</uri>
-                        <name>UrbanTile/WALLS_Diffuse</name>
-                    </script>
-                </material>
-            </visual>
-
-        <visual name="BOXSET_visual">
+        <visual name="warehouse_mesh">
           <geometry>
             <mesh>
               <scale>0.6 0.6 0.6</scale>
               <uri>meshes/Depot.dae</uri>
-              <submesh>
-                <name>BOXSET</name>
-                <center>false</center>
-              </submesh>
             </mesh>
           </geometry>
-          <material>
-            <diffuse>1.0 1.0 1.0</diffuse>
-            <specular>1.0 1.0 1.0</specular>
-            <pbr>
-              <metal>
-                <albedo_map>materials/textures/BOXSET_Albedo.png</albedo_map>
-                <normal_map>materials/textures/BOXSET_Normal.png</normal_map>
-                <metalness_map>materials/textures/BOXSET_Metalness.png</metalness_map>
-                <roughness_map>materials/textures/BOXSET_Roughness.png</roughness_map>
-                <emissive_map>materials/textures/BOXSET_Emissive.png</emissive_map>
-                <light_map uv_set="1">materials/textures/DepotLightmap.png</light_map>
-              </metal>
-            </pbr>
-          </material>
         </visual>
 
-        <visual name="FLOOR_visual">
+        <visual name="roof_visual">
+          <pose>0 0 10 0 0 0</pose>
           <geometry>
-            <mesh>
-              <scale>0.6 0.6 0.6</scale>
-              <uri>meshes/Depot.dae</uri>
-              <submesh>
-                <name>FLOOR</name>
-                <center>false</center>
-              </submesh>
-            </mesh>
+            <box>
+              <size>30 20 0.3</size>
+            </box>
           </geometry>
           <material>
-            <diffuse>1.0 1.0 1.0</diffuse>
-            <specular>1.0 1.0 1.0</specular>
-            <pbr>
-              <metal>
-                <albedo_map>materials/textures/FLOOR_Albedo.png</albedo_map>
-                <normal_map>materials/textures/FLOOR_Normal.png</normal_map>
-                <metalness_map>materials/textures/FLOOR_Metalness.png</metalness_map>
-                <roughness_map>materials/textures/FLOOR_Roughness.png</roughness_map>
-                <light_map uv_set="1">materials/textures/DepotLightmap.png</light_map>
-              </metal>
-            </pbr>
-          </material>
-        </visual>
-
-        <visual name="crates">
-          <geometry>
-            <mesh>
-              <scale>0.6 0.6 0.6</scale>
-              <uri>meshes/Crates.dae</uri>
-            </mesh>
-          </geometry>
-          <material>
-            <diffuse>1.0 1.0 1.0</diffuse>
-            <specular>1.0 1.0 1.0</specular>
-            <pbr>
-              <metal>
-                <albedo_map>materials/textures/Crates_Crates_BaseColor.png</albedo_map>
-                <normal_map>materials/textures/Crates_Crates_Normal.png</normal_map>
-                <roughness_map>materials/textures/Crates_Crates_Roughness.png</roughness_map>
-              </metal>
-            </pbr>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.9 0.9 0.9 1</diffuse>
           </material>
         </visual>
       </link>
-
-      <joint name="world_joint" type="fixed">
-        <parent>world</parent>
-        <child>main</child>
-      </joint>
-
     </model>
 
-        <!-- Shelf Model -->
-    <model name="shelf">
-      <pose>0 0 0 0 0 0</pose>
-      <self_collide>true</self_collide>
-      <!-- BASE_LINK FRAME -->
-      <link name="shelf_base">
-        <pose>-0.5 0 0 0 0 0</pose>
-        <collision name="shelf_chassi_collision">
-          <pose>0 0 0.9 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>3.6 0.6 1.8</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="shelf_chassi_visual">
-          <pose>0 0 0 0 0 0</pose>
+    <model name="shelf_1">
+      <static>true</static> <pose>-2 2 0 0 0 0</pose> <link name="shelf_base">
+        <visual name="shelf_visual">
           <geometry>
             <mesh>
               <scale>0.2 0.3 0.3</scale>
@@ -150,8 +65,15 @@
             </mesh>
           </geometry>
         </visual>
+        <collision name="shelf_collision">
+          <geometry>
+            <mesh>
+              <scale>0.2 0.3 0.3</scale>
+              <uri>meshes/shelf_big_movai.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
       </link>
-      <static>1</static>
     </model>
 
   </world>
