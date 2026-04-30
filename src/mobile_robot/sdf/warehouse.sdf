@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <world name="warehouse_world">
+
+    <plugin filename="gz-sim-physics-system"          name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system"    name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-contact-system"          name="gz::sim::systems::Contact"/>
+
+    <scene>
+      <grid>false</grid>
+      <origin_visual>false</origin_visual>
+      <ambient>0.5 0.5 0.5 1</ambient>
+      <background>0.5 0.7 1.0 1</background>
+    </scene>
+
+    <light name="warehouse_light" type="point">
+      <pose>0 0 2 0 0 0</pose>
+      <diffuse>0.7 0.7 0.7 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>15</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <cast_shadows>true</cast_shadows>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>50 50</size>
+            </plane>
+          </geometry>
+          <!-- Friction fix: gives the wheels something to grip -->
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.5</mu>
+                <mu2>1.5</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0.0</slip1>
+                <slip2>0.0</slip2>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1e6</kp>
+                <kd>100</kd>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>50 50</size>
+            </plane>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <model name="tanvi_warehouse">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+
+      <link name="main">
+
+        <!-- Mesh visual (unchanged) -->
+        <visual name="warehouse_mesh">
+          <geometry>
+            <mesh>
+              <scale>0.15 0.15 0.15</scale>
+              <uri>meshes/Depot.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+
+        <!-- Roof visual (unchanged) -->
+        <visual name="roof_visual">
+          <pose>0 0 2.5 0 0 0</pose>
+          <geometry>
+            <box><size>7.5 5 0.075</size></box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.9 0.9 0.9 1</diffuse>
+          </material>
+        </visual>
+
+        <!-- ── Roof collision ──────────────────────────────────── -->
+        <collision name="roof_collision">
+          <pose>0 0 2.5 0 0 0</pose>
+          <geometry>
+            <box><size>7.5 5 0.075</size></box>
+          </geometry>
+        </collision>
+
+        <!-- Front wall -->
+        <collision name="wall_front">
+          <pose>0 -2.5 1.25 0 0 0</pose>
+          <geometry>
+            <box><size>7.5 0.15 2.5</size></box>
+          </geometry>
+        </collision>
+
+        <!-- Back wall -->
+        <collision name="wall_back">
+          <pose>0 2.5 1.25 0 0 0</pose>
+          <geometry>
+            <box><size>7.5 0.15 2.5</size></box>
+          </geometry>
+        </collision>
+
+        <!-- Left wall -->
+        <collision name="wall_left">
+          <pose>-3.75 0 1.25 0 0 0</pose>
+          <geometry>
+            <box><size>0.15 5 2.5</size></box>
+          </geometry>
+        </collision>
+
+        <!-- Right wall -->
+        <collision name="wall_right">
+          <pose>3.75 0 1.25 0 0 0</pose>
+          <geometry>
+            <box><size>0.15 5 2.5</size></box>
+          </geometry>
+        </collision>
+
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  Shelf  – collision already uses mesh, kept as-is            -->
+    <!-- ============================================================ -->
+    <model name="shelf_1">
+      <static>true</static>
+      <pose>-0.5 0.5 0 0 0 0</pose>
+
+      <link name="shelf_base">
+        <visual name="shelf_visual">
+          <geometry>
+            <mesh>
+              <scale>0.2 0.3 0.3</scale>
+              <uri>meshes/shelf_big_movai.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+
+        <collision name="shelf_collision">
+          <geometry>
+            <mesh>
+              <scale>0.2 0.3 0.3</scale>
+              <uri>meshes/shelf_big_movai.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--  Robot                                                        -->
+    <!-- ============================================================ -->
+    <include>
+      <uri>file:///home/ishan/Documents/ros_mobile_robot/fusionSDF</uri>
+      <pose>-1 0 0.2 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>
