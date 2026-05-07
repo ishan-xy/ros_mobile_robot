@@ -155,7 +155,8 @@
       <axis>
         <xyz>1 0 0</xyz>
         <dynamics><damping>0.2</damping><friction>0.05</friction></dynamics>
-        <limit><lower>-1000000</lower><upper>1000000</upper></limit>
+        <limit><lower>-1000000</lower><upper>1000000</upper><effort>1000</effort>
+  <velocity>100</velocity></limit>
       </axis>
     </joint>
 
@@ -166,7 +167,8 @@
       <axis>
         <xyz>1 0 0</xyz>
         <dynamics><damping>0.2</damping><friction>0.05</friction></dynamics>
-        <limit><lower>-1000000</lower><upper>1000000</upper></limit>
+        <limit><lower>-1000000</lower><upper>1000000</upper><effort>1000</effort>
+  <velocity>100</velocity></limit>
       </axis>
     </joint>
 
@@ -177,7 +179,8 @@
       <axis>
         <xyz>1 0 0</xyz>
         <dynamics><damping>0.2</damping><friction>0.05</friction></dynamics>
-        <limit><lower>-1000000</lower><upper>1000000</upper></limit>
+        <limit><lower>-1000000</lower><upper>1000000</upper><effort>1000</effort>
+  <velocity>100</velocity></limit>
       </axis>
     </joint>
 
@@ -188,10 +191,82 @@
       <axis>
         <xyz>1 0 0</xyz>
         <dynamics><damping>0.2</damping><friction>0.05</friction></dynamics>
-        <limit><lower>-1000000</lower><upper>1000000</upper></limit>
+        <limit><lower>-1000000</lower><upper>1000000</upper><effort>1000</effort>
+  <velocity>100</velocity></limit>
       </axis>
     </joint>
 
+    <link name="lidar_link">
+
+  <pose> 0.08 0.027 0.06 0 0 0</pose>
+
+  <inertial>
+    <mass>0.1</mass>
+    <inertia>
+      <ixx>1e-4</ixx>
+      <iyy>1e-4</iyy>
+      <izz>1e-4</izz>
+      <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+    </inertia>
+  </inertial>
+
+  <!-- small visual -->
+  <visual name="lidar_visual">
+    <geometry>
+      <cylinder>
+        <radius>0.01</radius>
+        <length>0.01</length>
+      </cylinder>
+    </geometry>
+    <material>
+      <ambient>0.1 0.1 0.1 1</ambient>
+      <diffuse>0.2 0.2 0.2 1</diffuse>
+    </material>
+  </visual>
+
+  <!-- SENSOR -->
+  <sensor name="lidar_sensor" type="gpu_lidar">
+
+  <pose>0 0 0 0 0 0</pose>
+  <update_rate>10</update_rate>
+
+  <topic>/scan</topic>
+  <frame_id>lidar_link</frame_id>
+
+  <ray>
+    <scan>
+      <horizontal>
+        <samples>360</samples>
+        <resolution>1</resolution>
+        <min_angle>-3.14159</min_angle>
+        <max_angle>3.14159</max_angle>
+      </horizontal>
+    </scan>
+
+    <range>
+      <min>0.1</min>
+      <max>10.0</max>
+      <resolution>0.01</resolution>
+    </range>
+
+    <noise>
+      <type>gaussian</type>
+      <mean>0.0</mean>
+      <stddev>0.01</stddev>
+    </noise>
+  </ray>
+
+  <always_on>true</always_on>
+  <visualize>true</visualize>
+
+</sensor>
+
+</link>
+
+<joint name="lidar_joint" type="fixed">
+  <parent>base_link_1</parent>
+  <child>lidar_link</child>
+</joint>
 
     <!-- DIFF DRIVE PLUGIN -->
     <plugin filename="libignition-gazebo-diff-drive-system.so"
@@ -212,8 +287,12 @@
 
       <topic>/cmd_vel</topic>
       <odom_topic>/odom</odom_topic>
+      
       <frame_id>odom</frame_id>
       <child_frame_id>base_link_1</child_frame_id>
+
+      <publish_tf>true</publish_tf>
+      <tf_topic>/tf</tf_topic>
 
     </plugin>
 
